@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "ProposeStreamers";
+}
+@model StreamersAndVideos
+
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div id="carousel__items-wrapper" class="carousel-inner" style="overflow: initial;">
+        @{
+            bool isLastSlideSingle = false;
+            int lastSlideIndex = Model.Streamers.Count - 1;
+            if (Model.Streamers.Count % 2 == 1)
+                isLastSlideSingle = true;
+
+            for (int i = 0; i < Model.Streamers.Count; i += 2)
+            {
+                if (isLastSlideSingle && i == lastSlideIndex)
+                {
+                    <div class="carousel-item">
+                        <div class="row d-flex justify-content-around w-100">
+                            <partial name="_ProposeCardPartial" model="new StreamerAndVideos() { Streamer = Model.Streamers[i], Videos = Model.Videos.Where(v => v.UserId == Model.Streamers[i].Id).Take(3).ToList()}" />
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="carousel-item">
+                        <div class="row d-flex justify-content-around w-100">
+                            <partial name="_ProposeCardPartial" model="new StreamerAndVideos() { Streamer = Model.Streamers[i], Videos = Model.Videos.Where(v => v.UserId == Model.Streamers[i].Id).Take(3).ToList()}" />
+                            <partial name="_ProposeCardPartial" model="new StreamerAndVideos() { Streamer = Model.Streamers[i + 1], Videos = Model.Videos.Where(v => v.UserId == Model.Streamers[i + 1].Id).Take(3).ToList()}" />
+                        </div>
+                    </div>
+                }
+            }
+        }
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+@section Scripts{
+<script type="text/javascript">
+    $(document).ready(function () {
+        debugger;
+        var firstCarouselItem = $('#carousel__items-wrapper').children().first()
+        firstCarouselItem.addClass('active');
+    });
+</script>
+}

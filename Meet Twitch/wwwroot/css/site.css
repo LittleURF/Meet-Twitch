@@ -1,0 +1,110 @@
+﻿body {
+    min-height: 125vh;
+}
+
+
+.navbar-brand {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin-left: 10%;
+    color: #3b007e;
+    font-size: 170%;
+    margin-bottom: 35px;
+}
+
+.propose-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    width: 45%;
+    background-color: whitesmoke;
+    box-shadow: 1px 3px 13px 1px rgba(0,0,0,0.49);
+    padding: 0px;
+    margin: 0px 5px 25px 5px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.propose-card__image {
+    width: 50px;
+    height: auto;
+    position: absolute;
+    top: -15px;
+    left: -10px;
+    border-radius: 100%;
+}
+
+.propose-card__header {
+    height: 300px;
+    background-color: lightgray;
+    background-size: cover;
+}
+
+.propose-card__name {
+    text-align: center;
+    color: white;
+    background-color: #3f4045;
+    text-shadow: 4px 1px 4px black;
+    font-size: 150%;
+    font-weight: 300;
+}
+
+.propose-card__description {
+    text-align: center;
+    font-size: 105%;
+    padding: 7px;
+}
+
+.propose-card__view-count{
+    position: absolute;
+    bottom: 0px;
+    left: -50%;
+    right: -50%;
+    margin: 10px auto 0px;
+    font-size: 80%;
+    text-align: center;
+    margin-top: 6px;
+    padding: 7px;
+}
+
+.propose-card__videos {
+    display: flex;
+    justify-content: center;
+    padding-top: 5px;
+}
+
+.propose-card__videos__card {
+    width: 30%;
+    box-shadow: 1px 3px 13px 1px rgba(0,0,0,0.49);
+    margin: 0px auto 5px auto;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.propose-card__videos__image {
+    width: 100%;
+    background-color: slategray;
+    background-size: cover;
+}
+
+.propose-card__videos__title {
+    padding: 2px;
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+    transform: scale(3.5);
+    filter: invert(100%);
+}
+
+.carousel-indicators {
+    bottom: -35px;
+    transform: scale(1.5);
+    filter: invert(100%);
+}
+
+@media (max-width: 768px) {
+    .propose-card {
+        width: 80%;
+    }
+}

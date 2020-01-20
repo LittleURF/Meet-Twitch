@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model GamesAndLanguagesViewModel
+
+<div class="text-center">
+    <h1 class="display-4">Get yourself a new, cooler, better, stronger streamer</h1>
+    <form id="fjut">
+        <div class="d-flex justify-content-center mb-4">
+            <div class="form-group m-1">
+                <h4>Choose Game</h4>
+                <select name="gameId" asp-items="@(new SelectList(Model.Games, "Id", "Name"))" class="form-control"></select>
+            </div>
+            <div class="form-group m-1">
+                <h4>Choose Language</h4>
+                <select name="language" asp-items="Html.GetEnumSelectList<TwitchLanguages>()" class="form-control"></select>
+            </div>
+        </div>
+        <button id="searchbtn" type="button" class="btn btn-primary m-auto">Search</button>
+    </form>
+</div>
+<div id="proposition" class="mt-4"></div>
+
+@section scripts{
+<script>
+    $('#searchbtn').on('click', (function () {
+        var serializedForm = $('#fjut').serialize();
+        $.ajax({
+            type: "POST",
+            url: "/Home/ProposeStreamers",
+            data: serializedForm,
+            success: function (response) {
+                console.log(response);
+                $('#proposition').html(response);
+                var firstCarouselItem = $('#carousel__items-wrapper').children().first()
+                firstCarouselItem.addClass('active');
+            },
+            failure: function (response) {
+                console.log(response);
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }));
+
+
+</script>
+}

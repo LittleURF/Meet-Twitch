@@ -1,0 +1,21 @@
+﻿@model StreamerAndVideos
+
+<div class="propose-card">
+    <section class="propose-card-introduction">
+        <div class="propose-card__header" style="background-image: url('@Model.Streamer.OfflineImageUrl')">
+            <h4 class="propose-card__name">@Model.Streamer.DisplayName</h4>
+        </div>
+        <img class="propose-card__image" src="@Model.Streamer.profileImageUrl">
+        <p class="propose-card__description">@Model.Streamer.Description</p>
+        @*<p class="propose-card__view-count">@user.ViewCount Views</p>*@
+    </section>
+    <section class="propose-card__videos">
+        @foreach (var video in Model.Videos)
+        {
+            <div class="propose-card__videos__card">
+                <img class="propose-card__videos__image" src="@video.ThumbnailUrl" />
+                <p class="propose-card__videos__title">@video.Title</p>
+            </div>
+        }
+    </section>
+</div>
