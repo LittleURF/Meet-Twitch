@@ -51,7 +51,6 @@ namespace Meet_Twitch.Controllers
             var videos = new List<Video>();
             var streamers = new List<User>();
             Game game = null;
-
             try
             {
                 if (gameId != null)
@@ -62,7 +61,7 @@ namespace Meet_Twitch.Controllers
 
                 if (videos != null)
                 {
-                    List<string> creatorIds = FindVideosCreatorsIds(videos);
+                    List<string> creatorIds = videos.Select(v => v.UserId).ToList();
                     streamers = await _twitchRepository.GetUsers(creatorIds) ?? throw new DataNotFoundException("Getting Users from Twitch API Failed");
                     streamers.Take(12).OrderByDescending(u => u.ViewCount).ToList();
                     foreach (var video in videos)
@@ -85,11 +84,6 @@ namespace Meet_Twitch.Controllers
             }
             return PartialView("_PropositionCarouselPartial", model);
         }
-
-        private List<string> FindVideosCreatorsIds(List<Video> videos)
-        {
-            return videos.Select(v => v.UserId).ToList();
-        } 
 
 
 

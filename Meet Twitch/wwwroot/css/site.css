@@ -1,14 +1,11 @@
 ﻿body {
+    background-image: linear-gradient(to right top, #8500ff, #7a0ee3, #6f16c8, #631aae, #581c94, #581c94, #581c94, #581c94, #631aae, #6f16c8, #7a0ee3, #8500ff);
     min-height: 125vh;
 }
 
-
-.navbar-brand {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    margin-left: 10%;
-    color: #3b007e;
-    font-size: 170%;
-    margin-bottom: 35px;
+#search-form__btn {
+    width: 160px;
+    height: 40px;
 }
 
 .propose-card {

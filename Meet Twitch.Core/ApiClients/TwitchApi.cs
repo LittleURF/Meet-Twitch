@@ -41,25 +41,21 @@ namespace Meet_Twitch.Core.ApiClients
 
         private bool IsRefreshRequired()
         {
-            var tokenCreationDateData = _config.GetSection("Twitch")["TokenCreationDate"];
-
-            DateTime.TryParse(tokenCreationDateData, out DateTime tokenCreationDate);
-            if (tokenCreationDate == null) throw new ApplicationException("No Authorization Token creation date specified in Configuration File");
-
-            if ((DateTime.Now - tokenCreationDate) > TimeSpan.FromDays(20))
+            var request = new RestRequest("games/top?first=5", DataFormat.Json);
+            var httpResponse = RestClient.Get(request);
+            if (!httpResponse.IsSuccessful)
                 return true;
 
-            return true;
+            return false;
         }
 
         private void RefreshToken()
         {
-            AuthToken token = null;
-
             try
             {
-                token =  GetApiToken();
+                AuthToken token =  GetApiToken();
                 if (token == null || String.IsNullOrWhiteSpace(token.AccessToken)) throw new DataNotFoundException("Getting Authorization Token from Twitch API Failed");
+                _config.GetSection("Twitch")["AccessToken"] = token.AccessToken;
             }
             catch (Exception ex)
             {
@@ -67,8 +63,6 @@ namespace Meet_Twitch.Core.ApiClients
                 throw;
             }
 
-            _config.GetSection("Twitch")["AccessToken"] = token.AccessToken;
-            _config.GetSection("Twitch")["TokenCreationDate"] = token.CreatedAt.ToShortDateString();
         }
 
         public AuthToken GetApiToken()
